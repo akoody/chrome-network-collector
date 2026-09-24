@@ -1,4 +1,6 @@
-# Chrome Network ReqCollector
+# Chrome Network Collector
+
+Русский | [English](README.en.md)
 
 Расширение записывает сетевые события из текущего профиля Chrome и сохраняет их в NDJSON. Для хранения файлов и управления захватом нужен локальный Node.js-контроллер.
 
