@@ -1,0 +1,75 @@
+:root {
+  color-scheme: light;
+  font: 13px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #202124;
+  background: #fff;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  width: 360px;
+  margin: 0;
+  padding: 18px;
+}
+
+header, .row, .capture-heading, .output-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+h1 { margin: 0; font-size: 17px; font-weight: 650; }
+header p { margin: 3px 0 0; color: #5f6368; font-size: 12px; }
+header p::before { display: inline-block; width: 7px; height: 7px; margin-right: 6px; border-radius: 50%; background: #9aa0a6; content: ""; }
+header p[data-ready="true"]::before { background: #188038; }
+.icon-button { width: 34px; padding: 5px; font-size: 17px; }
+
+label { display: block; margin: 16px 0 6px; font-weight: 600; }
+input:not([type="checkbox"]) {
+  width: 100%;
+  height: 36px;
+  padding: 7px 9px;
+  border: 1px solid #dadce0;
+  border-radius: 6px;
+  background: #fff;
+  color: inherit;
+  font: inherit;
+}
+input:focus { outline: 2px solid #8ab4f8; border-color: transparent; }
+.row { align-items: end; }
+.grow { flex: 1; min-width: 0; }
+.check-field { display: flex; align-items: center; gap: 6px; max-width: 170px; margin-bottom: 8px; font-weight: 400; }
+.check-field input { margin: 0; }
+
+button {
+  border: 1px solid #dadce0;
+  border-radius: 6px;
+  padding: 7px 10px;
+  background: #fff;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+button:hover { background: #f8f9fa; }
+button:disabled { opacity: .55; cursor: wait; }
+.primary { width: 100%; margin-top: 18px; border-color: #1a73e8; background: #1a73e8; color: #fff; font-weight: 600; }
+.primary:hover { background: #1765cc; }
+
+details { margin-top: 16px; border-top: 1px solid #e8eaed; padding-top: 12px; }
+summary { cursor: pointer; font-weight: 600; }
+details label { margin-top: 12px; }
+.hint { color: #5f6368; font-size: 12px; }
+details .hint { margin-bottom: 0; }
+
+.capture { margin-top: 18px; border: 1px solid #e8eaed; border-radius: 8px; padding: 12px; }
+.capture-heading { align-items: baseline; }
+#capture-time { color: #5f6368; font-variant-numeric: tabular-nums; }
+.capture p { overflow-wrap: anywhere; }
+.error { color: #b3261e; font-size: 12px; }
+.output-row { align-items: flex-start; }
+.output-row code { min-width: 0; overflow-wrap: anywhere; font-size: 11px; }
+.output-row button { flex-shrink: 0; font-size: 11px; }
+.message { margin: 10px 0 0; color: #b3261e; font-size: 12px; }
+.message:empty { display: none; }

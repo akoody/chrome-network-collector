@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Сборщик запросов</title>
+    <link rel="stylesheet" href="popup.css">
+  </head>
+  <body>
+    <header>
+      <div>
+        <h1>Сборщик запросов</h1>
+        <p id="connection" role="status">Проверка контроллера…</p>
+      </div>
+      <button id="settings" class="icon-button" type="button" aria-label="Настройки" title="Настройки">⚙</button>
+    </header>
+
+    <form id="capture-form">
+      <label for="url">Адрес сайта</label>
+      <input id="url" name="url" type="url" placeholder="https://example.com" autocomplete="url" required>
+
+      <div class="row">
+        <div class="grow">
+          <label for="duration">Длительность, сек</label>
+          <input id="duration" name="duration" type="number" min="1" max="300" value="30" required>
+        </div>
+        <label class="check-field" for="capture-bodies">
+          <input id="capture-bodies" type="checkbox" checked>
+          <span>Сохранять тела ответов</span>
+        </label>
+      </div>
+
+      <details>
+        <summary>Прокси</summary>
+        <label for="proxy-server">Адрес прокси</label>
+        <input id="proxy-server" type="text" placeholder="http://127.0.0.1:8080" autocomplete="url">
+        <div class="row">
+          <div class="grow">
+            <label for="proxy-username">Логин</label>
+            <input id="proxy-username" type="text" autocomplete="username">
+          </div>
+          <div class="grow">
+            <label for="proxy-password">Пароль</label>
+            <input id="proxy-password" type="password" autocomplete="current-password">
+          </div>
+        </div>
+        <p class="hint">Прокси временно меняет настройки всего Chrome и возвращается после захвата.</p>
+      </details>
+
+      <button id="start" class="primary" type="submit">Начать захват</button>
+    </form>
+
+    <section id="capture" class="capture" hidden aria-live="polite">
+      <div class="capture-heading">
+        <strong id="capture-status">Захват</strong>
+        <span id="capture-time"></span>
+      </div>
+      <p id="capture-summary" class="hint"></p>
+      <p id="capture-error" class="error" hidden></p>
+      <div id="output-row" class="output-row" hidden>
+        <code id="output-file"></code>
+        <button id="copy-path" type="button">Копировать путь</button>
+      </div>
+    </section>
+
+    <p id="message" class="message" role="status" aria-live="polite"></p>
+    <script src="popup.js"></script>
+  </body>
+</html>

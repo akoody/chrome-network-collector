@@ -1,0 +1,25 @@
+{
+  "manifest_version": 3,
+  "name": "Local Network Collector",
+  "version": "0.1.0",
+  "description": "Captures network activity from tabs in the current Chrome profile.",
+  "permissions": [
+    "debugger",
+    "tabs",
+    "proxy",
+    "storage",
+    "alarms",
+    "webRequest",
+    "webRequestAuthProvider"
+  ],
+  "host_permissions": ["<all_urls>"],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "action": {
+    "default_title": "Сборщик сетевых запросов",
+    "default_popup": "popup.html"
+  },
+  "options_page": "options.html"
+}
