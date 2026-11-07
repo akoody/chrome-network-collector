@@ -106,7 +106,9 @@ function normalizeProxy(value: unknown): ProxyConfig | undefined {
   if (scheme !== "http" && scheme !== "https" && scheme !== "socks4" && scheme !== "socks5") {
     throw new InputError("Proxy scheme must be http, https, socks4 or socks5");
   }
-  if (!parsed.hostname || parsed.pathname !== "/" || parsed.search || parsed.hash) {
+  // У нестандартных схем (socks4/socks5) пустой pathname, у http(s) — "/".
+  const hasPath = parsed.pathname !== "" && parsed.pathname !== "/";
+  if (!parsed.hostname || hasPath || parsed.search || parsed.hash) {
     throw new InputError("Proxy must contain only scheme, host, port and credentials");
   }
 
