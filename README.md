@@ -1,5 +1,7 @@
 # Chrome Network Collector
 
+[![CI](https://github.com/akoody/chrome-network-collector/actions/workflows/ci.yml/badge.svg)](https://github.com/akoody/chrome-network-collector/actions/workflows/ci.yml)
+
 Русский | [English](README.en.md)
 
 Расширение записывает сетевые события из текущего профиля Chrome и сохраняет их в NDJSON. Для хранения файлов и управления захватом нужен локальный Node.js-контроллер.
@@ -21,3 +23,21 @@ npm start
 По умолчанию контроллер слушает `127.0.0.1:8787`, файлы сохраняются в `captures/`. Адрес, порт, каталог и максимальную длительность можно задать переменными `HOST`, `PORT`, `OUTPUT_DIR` и `MAX_DURATION_MS`.
 
 Во время одного захвата настройки прокси применяются ко всему Chrome, поэтому параллельные задания не запускаются. Тела ответов можно отключить в форме; потоковые ответы могут быть доступны не полностью.
+
+Прокси задаётся строкой (`host:port`, `http://user:pass@host:port`, `socks5://host:1080`) или объектом с полями `server`, `username`, `password`. Поддерживаются схемы http, https, socks4 и socks5.
+
+## Безопасность
+
+Контроллер слушает только `127.0.0.1`. HTTP API и WebSocket расширения требуют token: он генерируется при каждом запуске или задаётся через `COLLECTOR_TOKEN` и сравнивается за постоянное время. Захват ограничен схемами http и https.
+
+## Разработка
+
+```bash
+npm run check   # TypeScript, тесты, сборка
+```
+
+Тесты на `node:test` проверяют валидацию заданий (URL, ограничения длительности и размера тел, разбор прокси с учётными данными), конфиг, проверку token и запись NDJSON. CI запускает `npm run check` на каждом PR.
+
+## Лицензия
+
+[MIT](LICENSE)

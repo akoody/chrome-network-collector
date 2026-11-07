@@ -1,6 +1,7 @@
 import type { Server } from "node:http";
 import { WebSocket, WebSocketServer, type RawData } from "ws";
 import type { CaptureDispatcher, CaptureJob, ExtensionMessage } from "../capture/types.js";
+import { tokenMatches } from "../auth-token.js";
 
 type MessageHandler = (message: ExtensionMessage) => void | Promise<void>;
 type DisconnectHandler = () => void | Promise<void>;
@@ -19,7 +20,7 @@ export class ExtensionGateway implements CaptureDispatcher {
   attach(server: Server): void {
     server.on("upgrade", (request, socket, head) => {
       const requestUrl = new URL(request.url ?? "/", "http://127.0.0.1");
-      if (requestUrl.pathname !== "/extension" || requestUrl.searchParams.get("token") !== this.token) {
+      if (requestUrl.pathname !== "/extension" || !tokenMatches(requestUrl.searchParams.get("token"), this.token)) {
         socket.write("HTTP/1.1 401 Unauthorized\r\nConnection: close\r\n\r\n");
         socket.destroy();
         return;

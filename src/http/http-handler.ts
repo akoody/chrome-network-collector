@@ -1,5 +1,6 @@
 import type { IncomingMessage, ServerResponse } from "node:http";
 import type { AppConfig } from "../config.js";
+import { tokenMatches } from "../auth-token.js";
 import { CaptureConflictError, CaptureService, ExtensionUnavailableError } from "../capture/capture-service.js";
 import { InputError } from "../capture/validation.js";
 import type { ExtensionGateway } from "../transport/extension-gateway.js";
@@ -86,8 +87,7 @@ async function routeRequest(
 }
 
 function authorized(request: IncomingMessage, expectedToken: string): boolean {
-  const token = request.headers["x-collector-token"];
-  return typeof token === "string" && token === expectedToken;
+  return tokenMatches(request.headers["x-collector-token"], expectedToken);
 }
 
 async function readJson(request: IncomingMessage): Promise<unknown> {
